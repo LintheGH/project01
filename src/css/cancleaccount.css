@@ -1,0 +1,76 @@
+html,body{
+    width: 100%;
+    height: 100%;
+}
+#cancleaccount{
+    width: 100%;
+    height: 100%;
+    display:flex;
+    flex-direction: column;
+}
+#top{height: 74px;background: #F2F2F2;}
+.nav{
+    height: 143px;
+    background: #F2F2F2;
+    padding:0 52px 0 38px;
+    border-bottom:1px solid #DEDEDE;
+}
+.nav ul {
+    width: 100%;
+    height: 143px;
+    font-size:48px;
+    display:flex;
+    
+}
+.nav li{
+    flex:1;
+    height: 143px;
+    line-height: 143px;
+}
+.nav-r{text-align: right;}
+
+.main{
+    font-size:48px;
+    text-align: center;
+    padding:0 42px;
+    flex:1;
+}
+
+.m-info{
+    font-weight:bold;
+    height: 622px;
+}
+
+.steps{
+    line-height: 60px;
+    font-size:44px;
+    text-align: left;
+    padding:36px 60px;
+    background: #F5F5F5;
+}
+
+.appdownload{
+    margin-top:85px;
+}
+.appdownload p{
+    height: 44px;
+    line-height: 44px;  
+    color:#666;
+    margin-top:30px;
+    font-size:44px;
+}
+.appdownload a{
+    color:#4585DD;
+}
+
+
+.bottom{
+    height: 215px;
+    text-align: center;
+    background: #F8F8F8;
+    padding-top:50px;
+    box-sizing: border-box;
+    color:#BFBEC3;
+}
+.info div:first-child{font-size:52px}
+.info div:last-child{font-size:35px;margin-top:10px;}

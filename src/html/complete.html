@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" id="vp"content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/complete.css">
+    <script>
+        document.addEventListener('DOMContentLoaded',function(){
+            var wd = document.documentElement.clientWidth*window.devicePixelRatio/10;            document.getElementsByTagName('html')[0].style.fontSize = wd +'px';
+            document.getElementsByTagName('html')[0].style.fontSize = wd +'px';
+            var scale = 1/window.devicePixelRatio;
+            var mstr = 'initial-scale='+ scale +', maximum-scale='+ scale +', minimum-scale='+ scale +', user-scalable=no';
+            document.getElementById("vp").content = mstr;
+        })
+    </script>
+    <script src="../lib/require.js" data-main="../js/complete"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="codelogin">
+        <div id="top"></div>
+        <div class="nav">
+            <ul>
+                <li>
+                    <span></span>
+                    <span>补全帐号信息</span>
+                </li>
+                <li class="nav-r">···</li>
+            </ul>
+        </div>
+        <div class="main">
+            <div class="person">
+                <div class="p-pic"></div>
+                <div class="p-name">匿名</div>
+            </div>
+            <div class="phonewrap">
+                <label for="">手机号</label>
+                <input type="number" name="phone" id="userphone" placeholder="请输入手机号" required>
+                
+            </div>
+            <div class="pwdwrap">
+                <label for="">验证码</label>
+                <input type="number" name="msgcode" id="code" placeholder="请输入验证码" required>
+                <input type="button" value="获取验证码" id="code_btn" >
+            </div>
+            <div class="login_btn">
+                <input type="button" value="确定" id="login_btn">
+            </div>
+            <div class="codelogin">
+                <a href="./passwordlogin.html">密码登录</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

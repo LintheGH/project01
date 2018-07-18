@@ -1,0 +1,44 @@
+body{background: #f9f9f9;}
+#usercenter{height: 100%;width: 100%;display:flex;flex-direction:column;}
+#top{height: 100px;background:url('../img/bg.png') no-repeat;background-size: cover;background-position: 50%;display: flex;}
+#top .avatar{    
+    float: left;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: url('../img/tou.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    margin: 20px 15px;
+}
+#top p{
+    color: #fff;
+    font-size: 14px;
+    line-height: 100px;
+}
+
+
+#order{height: 151px;margin-top: 20px;}
+#order .all_top{height: 50px;border-top: 1px solid #F2F2F2;border-bottom: 1px solid #F2F2F2;background: white;display: flex;justify-content: space-between; vertical-align: baseline;padding: 15px 15px 0 0; vertical-align:middle;}
+#order .all_top p{font-size: 14px;text-indent: 15px;}
+#order .all_top svg{margin-top: 4px;}
+#order .all_bottom{height: 100px;background: white;border-bottom: 1px solid#F2F2F2;display: flex;padding: 25px 0 15px 0;}
+#order .all_bottom img{width: 36px;height: 34px;}
+.all_bottom div{padding-right: 59px;}
+#order .all_bottom div:nth-child(1){padding-left: 29px;}
+#order .all_bottom div:nth-child(4){padding-right: 29px;}
+#order .all_bottom span {padding-top: 12px;display: block;}
+
+
+#coupons{height: 50px;margin-top: 20px;border-top: 1px solid #F2F2F2;border-bottom: 1px solid #F2F2F2;background: white;padding: 15px;display: flex;justify-content: space-between;}
+.coupons_left {display: flex;}
+#coupons img{width: 17px;height: 20px;}
+#coupons p{padding-left: 10px;font-size: 14px;}
+#coupons span{font-size: 14px;color: #B5B5B5;}
+
+#account{height: 50px;background: white;margin-top: 20px;border-top: 1px solid #F2F2F2;border-bottom: 1px solid #F2F2F2;background: white;padding: 15px;display: flex;justify-content: space-between;}
+.account_left{display: flex;}
+#account img{width: 17px;height: 20px;}
+#account p{padding-left: 10px;font-size: 14px;}
+#account span{font-size: 14px;color: #B5B5B5;}
