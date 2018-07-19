@@ -24,7 +24,12 @@ app.use(express.static(path.join(__dirname,'../')));
 app.use(bparser.urlencoded({extended:false}));
 var routerFilter = ['/login','/codelogin','/getaccount'];
 app.use((request,response,next) => {
-    let pathname = request.url;
+    let pathname = '/';
+    if(request.method.toLowerCase() == 'get'){
+        pathname = url.parse(request.url,true).pathname;
+    }else if(request.method.toLowerCase() == 'post'){
+        pathname = request.url
+    }
     let hasRouter = routerFilter.includes(pathname);
     if(!hasRouter){
         let _token = request.headers['auth'];

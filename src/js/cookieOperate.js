@@ -20,7 +20,6 @@ define(['jquery'],function($){
             var date = new Date();
             date.setDate(date.getDate()+7);
             document.cookie = `project01=${JSON.stringify(data)};expires=${date.toUTCString()}`;
-
         },
         check:function(paramas){
             let cookie = document.cookie;

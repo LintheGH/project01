@@ -3,7 +3,9 @@ require.config({
         'jquery':'../lib/jquery',
         'randomcode':'./randomcode',
         'http':'./httpclient',
-        'reg':'./regtest'
+        'reg':'./regtest',
+        'dialog':'../lib/dialog/js/dialog',
+
     }
 })
 
@@ -28,78 +30,138 @@ define('inteval',() => {
 
 
 
-require(['jquery','http','reg','randomcode','inteval'],($,http,reg,random,inteval) => {
+require(['jquery','http','reg','randomcode','inteval','dialog'],($,http,reg,random,inteval,dialog) => {
     $(function(){
+        let _phone='';
+        let _id = window.localStorage.getItem('_id');
+        http.get('getaccount',{
+            id:_id
+        },{'auth':window.localStorage.getItem('token')}).then((res) => {
+            if(res.status){
+                $('.phonenum').text(res.data.res[0].phone)
+            }else{
+                console.log(res.message)
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
+
 
         var touchEvent = () => {
+
+            
             let index = 60;
             let randomCode = random();
             //
             $('#code').prop('value','').prop('placeholder',`${randomCode}`);
-            let  phone = $('.phonenum').text();
             let date = Date.now();
-            //注册手机号，存入验证码
-            http.post('codelogin',{
-                phone:phone,
-                randomcode:randomCode,
-                expires:date + 60000
-            }).then((res) => {
-                console.log(res);
-            }).catch((err) => {
-                console.log(err)
-            });
-            inteval(index,touchEvent);
 
+            //查找账户
+            let _id = window.localStorage.getItem('_id');
+            http.get('getaccount',{
+                id:_id
+            }).then((res) => {
+
+                if(res.status){
+                    _phone = res.data.res[0].phone
+                    //更新验证码
+                    http.post('update',{
+                        phone:_phone,
+                        randomcode:randomCode,
+                        expires:date + 120000
+                    },{'auth':window.localStorage.getItem('token')}).then((res) => {
+                        console.log(res.message);
+                    }).catch((err) => {
+                        console.log(err.message)
+                    });
+                    inteval(index,touchEvent);
+                }else{
+                    console.log(res.message)
+                }
+            }).catch((err) => {
+                console.log(err);
+            });
+            
         }
+
         //获取验证码按钮
         $('#code_btn').on('touchstart',touchEvent);
 
+        //确定按钮
         $('#confirm_btn').on('touchstart',() => {
             let password = $('#userpwd').val();
-            let  phone = $('.phonenum').text();
             let randomCode = $('#code').val();
+
             //验证密码合法性
             let pwdTest = reg('pwd',password);
             if(!pwdTest){
-                $('#userpwd').prop('value','');
-                $('#userpwd')[0].focus();
-                console.log('err')
+                $(document).dialog({
+                    type:'alert',
+                    titleShow: false,
+                    autoClose: 1000,
+                    content: '密码格式不正确'
+                });
+                $('.dialog-content-ft').remove();
             }else{
-                http.post('codelogin',{
-                    phone:phone,
-                    password:password,
+                //获取帐号中的验证码
+                http.get('getaccount',{
+                    phone:_phone,
                     randomcode:randomCode
+
                 }).then((res) => {
-                    console.log(res);
-                    //验证验证码合法性
+
+                    //验证码合法性
                     if(res.status){
                         let codeExpires = Number(res.data.res[0].codeExpires);
                         let randomCode = res.data.res[0].randomcode;
                         let date = Date.now();
-                        console.log(codeExpires,date)
                         if(randomCode != $('#code').val()){
-                            $('#code').prop('value','').prop('placeholder','验证码不正确');
-                            $('#code')[0].focus();
+                            $(document).dialog({
+                                type:'alert',
+                                titleShow: false,
+                                autoClose: 1000,
+                                content: '验证码不正确'
+                            });
+                            $('.dialog-content-ft').remove();
                         }else if(date > codeExpires){
-                            $('#code').prop('value','').prop('placeholder','验证码已过期');
-                            $('#code')[0].focus();
+                            $(document).dialog({
+                                type:'alert',
+                                titleShow: false,
+                                autoClose: 1000,
+                                content: '验证码已过期'
+                            });
+                            $('.dialog-content-ft').remove();
                         }else{
                             //更新数据库
                             http.post('update',{
-                                phone:phone,
+                                phone:_phone,
                                 password:password,
                                 randomcode:randomCode
                             },{'auth':`${window.localStorage.getItem('token')}`}).then((res) => {
-                                console.log(res)
+
                                 if(res.status){
-                                    window.localStorage.setItem('token',res.data.token)
-                                    window.location.href = '../index.html';   
+
+                                    $(document).dialog({
+                                        type:'confirm',
+                                        titleShow: false,
+                                        content: '修改成功',
+                                         buttons:   [
+                                                        {
+                                                            name: '确定',
+                                                            class: 'dialog-btn-confirm',
+                                                            callback: function() {
+                                                                window.location.href = '../index.html'
+                                                            }
+                                                        }
+                                                    ]
+                                    });
                                 }else{
-                                    console.log(res.message)
+                                    console.log(res.message);
                                 }
                             }).catch((err) =>{
                                 console.log(err)
                             });
+                            
                         }
                     }else{
                         alert('手机号未注册');
@@ -110,5 +172,9 @@ require(['jquery','http','reg','randomcode','inteval'],($,http,reg,random,inteva
             }
   
         });
+        
+        $('#back_btn').on('touchstart',() => {
+            window.location.href = './accountmanage.html'
+        })
     })
 })

@@ -21,13 +21,14 @@ define(['jquery'],function($){
             }
         }
         return {
-            get:function(_url,data,async=true){
+            get:function(_url,data,header={},async=true){
                 return new Promise(function(resolve,reject){
                     $.ajax({
                         url:urlFilter(_url),
                         data:data || {},
                         type:'GET',
                         async:async,
+                        headers:header,
                         success:function(res){
                             resolve(res);
                         },

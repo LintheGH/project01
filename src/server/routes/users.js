@@ -1,6 +1,7 @@
 const db = require('../db/dbhelper');
 const apiResult = require('../utils/apiResult');
 const _token = require('../token/token');
+const ObjectID = require('mongodb').ObjectID;
 
 module.exports = {
     register:(app) => {
@@ -36,7 +37,6 @@ module.exports = {
             
             if(result.length > 0){
                 let token = _token.codeToken(request.body.phone)
-                console.log(token)
                 response.send(apiResult(true,{result,token},'login success!'));
             }else{
                 let output = apiResult(result.length > 0,{},'name or password uncorrect');
@@ -54,13 +54,29 @@ module.exports = {
             }
             let dataset = await db.mongo.find('users',{phone:request.body.phone});
             if(dataset.length <= 0){
-                response.send(apiResult(false,{},'account is not exit'))
-            }else if(params.password){
+                if(request.body.randomcode){
+                    let _dataset = await db.mongo.find('users',{randomcode:request.body.randomcode});
+                    if(_dataset.length <=0 ){
+                        response.send(apiResult(false,{},'account is not exit'));
+                    }else{
+                        _dataset[0].phone = request.body.phone;
+                        let result = db.mongo.update('users',{randomcode:request.body.randomcode},_dataset[0]);
+                        response.send(apiResult(true,{result},'update successed'));
+                    }
+                }else{
+                    response.send(apiResult(false,{},'account is not exit'));
+                }
+            }else if(params.password&&(params.password != dataset[0].password)){
                 dataset[0].password = request.body.password;
                 let result = db.mongo.update('users',{phone:request.body.phone},dataset[0]);
                 response.send(apiResult(true,{result},'update successed'));
-            }else{
+            }else if(params.phone&&(params.phone != dataset[0].phone)){
                 dataset[0].phone = request.body.phone;
+                let result = db.mongo.update('users',{phone:request.body.phone},dataset[0]);
+                response.send(apiResult(true,{result},'update successed'));
+            }else if(params.randomcode&&params.codeExpires){
+                dataset[0].randomcode = request.body.randomcode;
+                dataset[0].codeExpires = request.body.expires;
                 let result = db.mongo.update('users',{phone:request.body.phone},dataset[0]);
                 response.send(apiResult(true,{result},'update successed'));
             }
@@ -73,7 +89,6 @@ module.exports = {
                 password:request.body.password
             }
             let dataset = db.mongo.find('users',params);
-            console.log(dataset)
             if(dataset <= 0){
                 response.send(apiResult(false,{},'eror,account not exit'))
             }else{
@@ -92,7 +107,6 @@ module.exports = {
             }
 
             let res = await db.mongo.find('users',{phone:request.body.phone});
-
             if(res.length >0){
                 let token = _token.codeToken(request.body.phone)
                 let result = await db.mongo.update('users',{phone:request.body.phone},params);
@@ -108,12 +122,14 @@ module.exports = {
         app.get('/getaccount',async (request,response) => {
             var params;
             if(request.query.id){
-                params = {_id:id}
+                let _id = new ObjectID(request.query.id);
+                params = {_id}
             }else if(request.query.phone){
                 params = {phone:request.query.phone}
             }
-            
-            let res = await db.mongo.find('users',params).toArray();
+
+            let res = await db.mongo.find('users',params);
+
             if(res.length > 0){
                 response.send(apiResult(true,{res},'account has found'));
             }else{

@@ -38,9 +38,14 @@ html,body{
 
 .m-info{
     font-weight:bold;
-    height: 622px;
+    padding:100px 0;
 }
-
+.icon-account{
+    font-size:150px !important;
+    color:#ccc;
+    display:inline-block;
+    margin-bottom:30px;
+}
 .steps{
     line-height: 60px;
     font-size:44px;
@@ -53,11 +58,11 @@ html,body{
     margin-top:85px;
 }
 .appdownload p{
-    height: 44px;
-    line-height: 44px;  
+    height: 35px;
+    line-height: 35px;  
     color:#666;
     margin-top:30px;
-    font-size:44px;
+    font-size:35px;
 }
 .appdownload a{
     color:#4585DD;

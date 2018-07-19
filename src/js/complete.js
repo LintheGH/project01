@@ -4,7 +4,8 @@ require.config({
         'randomcode':'./randomcode',
         'http':'./httpclient',
         'reg':'./regtest',
-        'cookie':'./cookieOperate'
+        'dialog':'../lib/dialog/js/dialog',
+
     }
 })
 
@@ -26,28 +27,34 @@ define('inteval',() => {
     }
 })
 
-require(['jquery','randomcode','http','inteval','reg','cookie'],($,random,http,inteval,reg,cookie) => {
+require(['jquery','randomcode','http','inteval','reg','dialog'],($,random,http,inteval,reg,dialog) => {
     jQuery(function($){
         
         var touchEvent = () => {
-            let index = 60;
-            let randomCode = random();
-            $('#code').prop('value','').prop('placeholder',`${randomCode}`);
+            
             let  phone = $('#userphone').val();
-            let date = Date.now();
+            
             //验证手机号
             let phTest = reg('phone',phone);
-            console.log(phone,phTest)
+
             if(!phTest){
-                $('#userphone').prop('value','').prop('placeholder','手机号不正确');
-                $('#userphone')[0].focus();
-                console.log('err')
+                $(document).dialog({
+                    type:'alert',
+                    titleShow: false,
+                    autoClose: 1000,
+                    content: '手机号不正确'
+                });
+                $('.dialog-content-ft').remove();
             }else{
                 //注册手机号，存入验证码
+                let index = 60;
+                let randomCode = random();
+                let date = Date.now();
+                $('#code').prop('value','').prop('placeholder',`${randomCode}`);
                 http.post('codelogin',{
                     phone:phone,
                     randomcode:randomCode,
-                    expires:date + 60000
+                    expires:date + 120000
                 }).then((res) => {
                     console.log(res);
                 }).catch((err) => {
@@ -66,31 +73,58 @@ require(['jquery','randomcode','http','inteval','reg','cookie'],($,random,http,i
             //验证手机号
             let phTest = reg('phone',phone);
             if(!phTest){
-                $('#userphone').prop('value','').prop('placeholder','手机号不正确');
-                $('#userphone')[0].focus();
-                console.log('err')
+                $(document).dialog({
+                    type:'alert',
+                    titleShow: false,
+                    autoClose: 1000,
+                    content: '手机号不正确'
+                });
+                $('.dialog-content-ft').remove();
             }else{
                 http.post('codelogin',{
                     phone:phone,
                     randomcode:randomCode
                 }).then((res) => {
-                    console.log(res);
+
                     //验证验证码合法性
                     if(res.status){
                         let codeExpires = Number(res.data.res[0].codeExpires);
                         let randomCode = res.data.res[0].randomcode;
                         let date = Date.now();
-                        console.log(codeExpires,date)
+
                         if(randomCode != $('#code').val()){
-                            $('#code').prop('value','').prop('placeholder','验证码不正确');
-                            $('#code')[0].focus();
+                            $(document).dialog({
+                                type:'alert',
+                                titleShow: false,
+                                autoClose: 1000,
+                                content: '验证码不正确'
+                            });
+                            $('.dialog-content-ft').remove();
                         }else if(date > codeExpires){
-                            $('#code').prop('value','').prop('placeholder','验证码已过期');
-                            $('#code')[0].focus();
+                            $(document).dialog({
+                                type:'alert',
+                                titleShow: false,
+                                autoClose: 1000,
+                                content: '验证码已过期'
+                            });
+                            $('.dialog-content-ft').remove();
                         }else{
 
                             window.localStorage.setItem('token',res.data.token)
-                            window.location.href = '../index.html';
+                            $(document).dialog({
+                                type:'confirm',
+                                titleShow: false,
+                                content: '修改成功',
+                                 buttons:   [
+                                                {
+                                                    name: '确定',
+                                                    class: 'dialog-btn-confirm',
+                                                    callback: function() {
+                                                        window.location.href = '../index.html'
+                                                    }
+                                                }
+                                            ]
+                            });
                         }
                     }else{
                         $('#userphone').prop('value','');

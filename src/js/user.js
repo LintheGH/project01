@@ -9,19 +9,19 @@ require.config({
 
 require(['jquery','cookie','http'],($,cookie,http) => {
     $(function(){
-        let _cookie = cookie.read();
-        console.log(_cookie);
+        let _id = window.localStorage.getItem('_id');
+
         http.get('getaccount',{
-            id:_cookie.uid
-        }).then((res) => {
-            console.log(res);
+            id:_id
+        },{'auth':window.localStorage.getItem('token')}).then((res) => {
             if(res.status){
-                $('.usersphone').text(res.data.res[0]._id)
+                $('.userphone').text(res.data.res[0].phone)
             }else{
                 console.log(res.message)
             }
         }).catch((err) => {
             console.log(err);
-        })
+        });
+
     })
 })

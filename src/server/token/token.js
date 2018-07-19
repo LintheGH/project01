@@ -4,7 +4,7 @@ module.exports = {
     codeToken: (name) => {
         let secret = 'lintoken';
         let preload = {phone:name};
-        let expires = {expiresIn:'1h'}
+        let expires = {expiresIn:'240h'}
         let token;
         return token = jwt.sign(preload,secret,expires);
     },
