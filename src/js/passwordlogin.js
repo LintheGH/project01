@@ -47,7 +47,13 @@ require(['jquery','http','reg','cookie','dialog'],($,http,reg,cookie,dialog) => 
                         window.localStorage.setItem('token',res.data.token)
                         window.location.href = '../index.html';
                     }else{
-                        return;
+                        $(document).dialog({
+                        type:'alert',
+                        titleShow: false,
+                        autoClose: 1000,
+                        content: '手机号或密码不正确'
+                    });
+                    $('.dialog-content-ft').remove();
                     }
                 },(err) => {
                     console.log(err);

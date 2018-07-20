@@ -20,7 +20,7 @@ app.all('*', function(req, res, next) {
 });
 
 
-app.use(express.static(path.join(__dirname,'../')));
+app.use(express.static(path.join(__dirname,'../../')));
 app.use(bparser.urlencoded({extended:false}));
 var routerFilter = ['/login','/codelogin','/getaccount'];
 app.use((request,response,next) => {
@@ -58,6 +58,8 @@ module.exports = {
         users.codeLogin(app);
 
         users.getAccount(app);
+        
+        users.jump(app);
         
         app.listen(port || 8080,() => {
             console.log(`server running at localhost:${port || 8080}`);

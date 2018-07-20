@@ -24,14 +24,14 @@
     <div id="register">
         <div id="top"></div>
         <div class="main"></div>
-
         <div class="cover">
             <div class="wrap1">
                 <div class="wp1-title">请填写您的手机号码</div>
                 <div class="input-wrap">
                     <div class="ph-wrap wp1">
                         <span>手机号</span>
-                        <input type="text" name="phone" id="phone" />
+                        <input type="number" name="phone" id="phone" />
+                        <span class="ph-wrap-info">请填写手机号</span>
                     </div>                   
                     <input type="button" value="确认手机号码" id="confirm_btn" class="wp1"/>
                 </div>
@@ -52,13 +52,31 @@
                     </div>
                     <div class="ph-wrap wp2">
                         <span>密码</span>
-                        <input type="password" name="pwd" id="phone" placeholder="请输入8-20位数字和字母组合"/>
+                        <input type="password" name="pwd" id="password" placeholder="请输入8-20位数字和字母组合"/>
                     </div> 
                 </div>
                 <input type="button" value="确认手机号码" id="confirm_btn2" class="wp2"/>
+                <div class="links _wp2">
+                    <span>如果您忘了密码，请<a href="javascript:" class="findpwd">点此找回密码</a></span>
+                    <span><a href="javascript:" class="_changephone">更换手机号</a></span>
+                </div>
+            </div>
+            <div class="wrap3">
+                <div class="wp3-title">帐号已注册，请登录</div>
+                <div class="in-wrap3">
+                    <div class="ph-wrap3 wp3">
+                        <span>手机号</span>
+                        <span>13500135000</span>
+                    </div>   
+                    <div class="ph-wrap wp3">
+                        <span>密码</span>
+                        <input type="password" name="pwd" id="_password" placeholder="请输入8-20位数字和字母组合"/>
+                    </div> 
+                </div>
+                <input type="button" value="确认手机号码" id="confirm_btn3" class="wp3"/>
                 <div class="links">
-                    <span>如果您忘了密码，请<a href="javascript:">点此找回密码</a></span>
-                    <span><a href="javascript:">更换手机号</a></span>
+                    <span>如果您忘了密码，请<a href="javascript:" class="findpwd">点此找回密码</a></span>
+                    <span><a href="javascript:" class="_changephone">更换手机号</a></span>
                 </div>
             </div>
         </div>

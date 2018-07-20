@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" id="vp"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <script>
+        var wd = document.documentElement.clientWidth*window.devicePixelRatio/10;
+        //物理像素*设备像素比=真实像素
+        document.getElementsByTagName("html")[0].style.fontSize = wd + "px";
+        var scale = 1/window.devicePixelRatio;
+        var mstr = 'initial-scale='+ scale +', maximum-scale='+ scale +', minimum-scale='+ scale +', user-scalable=no';
+        document.getElementById("vp").content = mstr;
+    </script>
+</head>
+<body>
+    <div class="top-xinxi"></div>
+    <div class="top-title clearfix">
+        <div class="fl">
+            <img src="./img/x.jpg" alt="" width="46">
+            <span>天马自选快餐</span>
+        </div>
+        <div class="fr gengduo">
+            <a href="">···</a>
+        </div>
+    </div>
+    <div class="top-banner">
+        <img src="./img/banner.jpg" alt="">
+    </div>
+    <div class="index-main">
+        <h2 class="m-title">天马自选快餐</h2>
+        <p>广东省广州市天河区元岗横路16号></p>
+        <p>营业时间：周一至周日08：00至11：45、14：00至20：00</p>
+    </div>
+    <ul class="daohang clearfix">
+        <li>
+            <div>
+                <img src="./img/waimai.jpg" alt="">
+            </div>
+            <p>点外卖</p>
+        </li>
+        <li>
+            <div>
+                <img src="./img/phone.jpg" height="150" width="150" alt="">
+            </div>
+            <p>点外卖</p>
+        </li>
+        <li>
+            <div>
+                <img src="./img/daohang.jpg" alt="">
+            </div>
+            <p>点外卖</p>
+        </li>
+        <li>
+            <div>
+                <img src="./img/haoyou.jpg" alt="">
+            </div>
+            <p>点外卖</p>
+        </li>
+        <li>
+            <div>
+                <img src="./img/youhuiquan.jpg" height="150" width="150" alt="">
+            </div>
+            <p>点外卖</p>
+        </li>
+        <li>
+            <div>
+                <img src="./img/geren.jpg" height="150" width="150" alt="">
+            </div>
+            <p>点外卖</p>
+        </li>
+    </ul>
+    <div class="mendian">
+        <h3>门店照片</h3>
+        <ul class="clearfix">
+            <li>
+                <img src="img/mendian1.jpg" alt="" />
+            </li>
+            <li>
+                <img src="img/mendian2.jpg" alt="" />
+            </li>
+            <li>
+                <img src="img/mendian3.jpg" alt="" />
+            </li>
+            <li>
+                <img src="img/mendian4.jpg" alt="" />
+            </li>
+            <li>
+                <img src="img/mendian5.jpg" alt="" />
+            </li>
+            <li>
+                <img src="img/mendian6.jpg" alt="" />
+            </li>
+        </ul>
+    </div>
+    <div class="zizhi clearfix">
+        <span class="fl">营业资质</span><span class="fr">></span>
+    </div>
+    <p class="bot">由 有赞餐饮 提供技术支持</p>
+</body>
+</html>

@@ -6,7 +6,7 @@ require.config({
         'dialog':'../lib/dialog/js/dialog',
     }
 });
-
+ 
 
 require(['jquery','cookie','http','dialog'],($,cookie,http,dialog) => {
     $(function(){

@@ -42,3 +42,9 @@ body{background: #f9f9f9;}
 #account img{width: 17px;height: 20px;}
 #account p{padding-left: 10px;font-size: 14px;}
 #account span{font-size: 14px;color: #B5B5B5;}
+
+
+
+.dialog-btn-confirm{
+    color:#07BF05 !important;
+}

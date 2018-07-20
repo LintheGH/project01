@@ -137,5 +137,12 @@ module.exports = {
             }
         })
 
+    },
+    jump:(app) => {
+        app.get('/accountmanage',(request,response) => {
+            response.send(apiResult(true,{},'token correct'))
+        });
+        
     }
+
 }

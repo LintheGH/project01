@@ -19,6 +19,7 @@ html,body{
     height: 100%;
     background-color:rgba(0,0,0,.8);
     position:relative;
+    display:none;
 }
 .wrap1{
     width: 900px;
@@ -26,17 +27,18 @@ html,body{
     position:absolute;
     top:50%;
     left:50%;
-    transform:translate(-50%,-50%);
+    transform:translate(-50%,-50%) scale(0,0);
     box-sizing: border-box;
     background: #fff;
     border-radius: 20px;
     padding:0 48px;
     display:flex;
     flex-direction: column;
-    display:none;
+
+    /*display:none;*/
 }
 
-.wp1-title,.wp2-title{
+.wp1-title,.wp2-title,.wp3-title{
     width: 100%;
     height: 144px;
     line-height: 144px;
@@ -60,8 +62,21 @@ html,body{
     font-size: 42px;
     border:3px solid #eee;
     box-sizing: border-box;
-    border-radius: 20px;;
+    border-radius: 20px;
+    position:relative;
 }
+
+.ph-wrap-info{
+    position:absolute;
+    left:0;
+    bottom:-60px;
+    font-size:36px;
+    line-height: 36px;
+    color:#F17C1D;
+    display:none;
+}
+
+
 #confirm_btn{
     border:0;
     background: #07BF05;
@@ -72,11 +87,12 @@ html,body{
     display:flex;
 }
 
-.ph-wrap span,.wp2 span{
+.ph-wrap span:not(.ph-wrap-info),.wp2 span,.wp3 span{
     padding:0 32px;
     display:inline-block;
     width: 200px;
     box-sizing: border-box;
+
 }
 .ph-wrap input{
     flex:1;
@@ -85,34 +101,39 @@ html,body{
 }
 
 
-.wrap2{
+.wrap2,.wrap3{
     width: 900px;
     position:absolute;
     top:50%;
     left:50%;
-    transform:translate(-50%,-50%);
+    transform:translate(-50%,-50%) scale(0,0);
     box-sizing: border-box;
     background: #fff;
     border-radius: 20px;
     padding:0 48px;
     display:flex;
     flex-direction: column;
+    /*display:none;*/
 
 }
-.wp2 input:not(#code_btn)
+
+.wp2 input:not(#code_btn),.wp3 input
 {
     flex:1;
     border:0;
     font-size: 40px;
 }
-.in-wrap2{
+.in-wrap2,.in-wrap3{
     margin:60px 0;
     height: 470px;
     display:flex;
     flex-direction: column;
     justify-content: space-between;
 }
-.wp2{
+.in-wrap3{
+    height: 310px;
+}
+.wp2,.wp3{
     width: 100%;
     height: 132px;
     line-height: 126px;
@@ -121,10 +142,17 @@ html,body{
     box-sizing: border-box;
     border-radius: 20px;
 }
-.ph-wrap2{
+.ph-wrap2,.ph-wrap3{
     background: #F8F8F8;
 }
-.ph-wrap2 input{
+.ph-wrap2 span:first-child{
+    vertical-align: top;
+}
+.ph-wrap2 span:last-child{
+    width:550px;
+    overflow:hidden;
+}
+.ph-wrap2 input,.ph-wrap2 input{
     background: #F8F8F8;
 }
 .code-wrap{
@@ -154,7 +182,7 @@ html,body{
 }
 
 
-#confirm_btn2{
+#confirm_btn2,#confirm_btn3{
     background: #07BF05;
     color:#fff;
 }
@@ -167,3 +195,62 @@ html,body{
 }
 .links a{color:#5A86E7;}
 .links span:last-child{float:right;}
+
+.scaleb{
+    transform:translate(-50%,-50%) scale(1,1);
+    transition:all .3s;
+}
+.scales{
+     transform:translate(-50%,-50%) scale(0,0);
+     transition:all .3s;
+}
+
+
+
+.active{border-color:#ccc !important;color:#ccc !important}
+
+/*弹窗样式重置*/
+.dialog-content  *{
+    font-size: 36px !important;
+
+}
+
+.dialog-content {
+      background-color: rgba(0, 0, 0, .8) !important;
+      top:50% !important;
+}
+
+.dialog-overlay{
+    background-color:rgba(0, 0, 0, 0) !important;
+}
+
+.dialog-content-bd{
+    color:#fff !important;
+}
+
+@media screen and (min-width: 767px) {
+    .dialog-content {
+      max-width: 40% !important;
+    }
+}
+.dialog-content-title{
+    font-size: 48px !important;
+}
+
+.dialog-content-ft{
+    display:none;
+    height:80px !important;
+}
+
+.dialog-btn{
+    height:80px !important;
+    line-height: 80px !important;
+    color:#fff !important;
+}
+
+.dialog-btn-hl{
+    color:#000 !important;
+}
+
+
+

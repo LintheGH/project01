@@ -14,7 +14,7 @@ require.config({
         'zepto':'../lib/dialog/lib/zepto.min'
     }
 });
-define(['zepto'],function(){
+require(['zepto'],function(){
     ;(function($, window, document, undefined) {
         'use strict';
         
