@@ -130,44 +130,44 @@ html,body{
 
 
 /*弹窗样式重置*/
-.dialog-content  *{
-    font-size: 36px !important;
+html body .dialog-content  *{
+    font-size: 36px;
 
 }
 
-.dialog-content {
-      background-color: rgba(0, 0, 0, .8) !important;
-      top:37% !important;
+html body .dialog-content {
+      background-color: rgba(0, 0, 0, .8);
+      top:37%;
 }
 
-.dialog-overlay{
-    background-color:rgba(0, 0, 0, 0) !important;
+html body .dialog-overlay{
+    background-color:rgba(0, 0, 0, 0);
 }
 
-.dialog-content-bd{
-    color:#fff !important;
+html body .dialog-content-bd{
+    color:#fff;
 }
 
 @media screen and (min-width: 767px) {
-    .dialog-content {
-      max-width: 40% !important;
+    html body .dialog-content {
+      max-width: 40%;
     }
 }
-.dialog-content-title{
-    font-size: 48px !important;
+html body .dialog-content-title{
+    font-size: 48px;
 }
 
-.dialog-content-ft{
+html body .dialog-content-ft{
     display:none;
-    height:80px !important;
+    height:80px;
 }
 
-.dialog-btn{
-    height:80px !important;
-    line-height: 80px !important;
-    color:#fff !important;
+html body .dialog-btn{
+    height:80px;
+    line-height: 80px;
+    color:#fff;
 }
 
-.dialog-btn-hl{
-    color:#000 !important;
+html body .dialog-btn-hl{
+    color:#000;
 }

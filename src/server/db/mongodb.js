@@ -1,11 +1,11 @@
 const mongodb = require('mongodb').MongoClient;
 var db;
 
-mongodb.connect('mongodb://localhost:27017', { useNewUrlParser: true },(err,_db) => {
+mongodb.connect('mongodb://10.3.138.132:27017', { useNewUrlParser: true },(err,_db) => {
     if(err){
         console.log(`connection go wrong`);
     }
-    db = _db.db('project01');
+    db = _db.db('tianma');
 });
 
     

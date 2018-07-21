@@ -11,10 +11,11 @@
  */
 require.config({
     paths:{
-        'zepto':'../lib/dialog/lib/zepto.min'
+
+        'jquery':'../lib/dialog/lib/jquery-1.9.1.min'
     }
 });
-require(['zepto'],function(){
+define(['jquery'],function(){
     ;(function($, window, document, undefined) {
         'use strict';
         

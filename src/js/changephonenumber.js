@@ -5,6 +5,7 @@ require.config({
         'http':'./httpclient',
         'reg':'./regtest',
         'dialog':'../lib/dialog/js/dialog',
+        'validate':'./validate'
 
     }
 })
@@ -30,11 +31,13 @@ define('inteval',() => {
 
 
 
-require(['jquery','http','reg','randomcode','inteval','dialog'],($,http,reg,random,inteval,dialog) => {
+require(['jquery','http','reg','randomcode','inteval','dialog','validate'],($,http,reg,random,inteval,dialog,validate) => {
     $(function(){
+        //token验证
+        validate('./accountmanage.html')
+
         let _phone='';
         var touchEvent = () => {
-
             let  phone = $('#userphone').val();
             //验证手机号合法性
             let phTest = reg('phone',phone);
@@ -47,37 +50,57 @@ require(['jquery','http','reg','randomcode','inteval','dialog'],($,http,reg,rand
                 });
                 $('.dialog-content-ft').remove();
             }else{
-                let index = 60;
-                let randomCode = random();
-                //
-                $('#code').prop('value','').prop('placeholder',`${randomCode}`);
-                let date = Date.now();
-                //查找账户
-                
-                let _id = window.localStorage.getItem('_id');
                 http.get('getaccount',{
-                    id:_id
+                    phone:phone
                 }).then((res) => {
-
                     if(res.status){
-                        _phone = res.data.res[0].phone
-                        //更新验证码
-                        http.post('update',{
-                            phone:_phone,
-                            randomcode:randomCode,
-                            expires:date + 120000
-                        },{'auth':window.localStorage.getItem('token')}).then((res) => {
-                            console.log(res.message);
-                        }).catch((err) => {
-                            console.log(err.message)
+                        $(document).dialog({
+                            type:'alert',
+                            titleShow: false,
+                            autoClose: 1000,
+                            content: '手机号已被注册'
                         });
-                        inteval(index,touchEvent);
+                        $('.dialog-content-ft').remove();
+
                     }else{
-                        console.log(res.message)
+                        let index = 60;
+                        let randomCode = random();
+                        //
+                        $('#code').prop('value','').prop('placeholder',`${randomCode}`);
+                        let date = Date.now();
+                        //查找账户
+                        
+                        let _id = window.localStorage.getItem('_id');
+                        http.get('getaccount',{
+                            id:_id
+                        }).then((res) => {
+                            if(res.status){
+                                _phone = res.data.res[0].phone
+                                //更新验证码
+                                http.post('update',{
+                                    phone:_phone,
+                                    randomcode:randomCode,
+                                    expires:date + 120000
+                                },{'auth':window.localStorage.getItem('token')}).then((res) => {
+                                    console.log(res.message);
+                                }).catch((err) => {
+                                    console.log(err.message)
+                                });
+                                inteval(index,touchEvent);
+                            }else{
+                                $(document).dialog({
+                                    type:'alert',
+                                    titleShow: false,
+                                    autoClose: 1000,
+                                    content: '无法获取帐号信息',
+                                });
+                                $('.dialog-content-ft').remove();
+                            }
+                        }).catch((err) => {
+                            console.log(err);
+                        });
                     }
-                }).catch((err) => {
-                    console.log(err);
-                });
+                }).catch((err) => {console.log(err)})
             }
         }
 
@@ -130,8 +153,9 @@ require(['jquery','http','reg','randomcode','inteval','dialog'],($,http,reg,rand
                                 phone:phone,
                                 randomcode:randomCode
                             },{'auth':`${window.localStorage.getItem('token')}`}).then((res) => {
-
+                                console.log(res)
                                 if(res.status){
+                                    window.localStorage.setItem('_id',res.data.dataset[0]._id)
                                     window.localStorage.setItem('token',res.data.token)
                                     $(document).dialog({
                                         type:'confirm',

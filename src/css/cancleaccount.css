@@ -1,81 +1,86 @@
 html,body{
-    width: 100%;
-    height: 100%;
+     width: 100%;
+     height: 100%;
 }
-#cancleaccount{
-    width: 100%;
-    height: 100%;
-    display:flex;
-    flex-direction: column;
+ #cancleaccount{
+     width: 100%;
+     height: 100%;
+     display:flex;
+     flex-direction: column;
 }
-#top{height: 74px;background: #F2F2F2;}
-.nav{
-    height: 143px;
-    background: #F2F2F2;
-    padding:0 52px 0 38px;
-    border-bottom:1px solid #DEDEDE;
+ #top{
+     height: 0.6607142857142857rem;
+     background: #F2F2F2;
 }
-.nav ul {
-    width: 100%;
-    height: 143px;
-    font-size:48px;
-    display:flex;
-    
+ .nav{
+     height: 1.2767857142857142rem;
+     background: #F2F2F2;
+     padding:0 0.4642857142857143rem 0 0.3392857142857143rem;
+     border-bottom:0.008928571428571428rem solid #DEDEDE;
 }
-.nav li{
-    flex:1;
-    height: 143px;
-    line-height: 143px;
+ .nav ul {
+     width: 100%;
+     height: 1.2767857142857142rem;
+     font-size:0.42857142857142855rem;
+     display:flex;
 }
-.nav-r{text-align: right;}
-
-.main{
-    font-size:48px;
-    text-align: center;
-    padding:0 42px;
-    flex:1;
+ .nav li{
+     flex:1;
+     height: 1.2767857142857142rem;
+     line-height: 1.2767857142857142rem;
 }
-
-.m-info{
-    font-weight:bold;
-    padding:100px 0;
+ .nav-r{
+     text-align: right;
 }
-.icon-account{
-    font-size:150px !important;
-    color:#ccc;
-    display:inline-block;
-    margin-bottom:30px;
+ .main{
+     font-size:0.42857142857142855rem;
+     text-align: center;
+     padding:0 0.375rem;
+     flex:1;
 }
-.steps{
-    line-height: 60px;
-    font-size:44px;
-    text-align: left;
-    padding:36px 60px;
-    background: #F5F5F5;
+ .m-info{
+     font-weight:bold;
+     padding:0.8928571428571429rem 0;
 }
-
-.appdownload{
-    margin-top:85px;
+ .icon-account{
+     font-size:1.3392857142857142rem !important;
+     color:#ccc;
+     display:inline-block;
+     margin-bottom:0.26785714285714285rem;
 }
-.appdownload p{
-    height: 35px;
-    line-height: 35px;  
-    color:#666;
-    margin-top:30px;
-    font-size:35px;
+ .steps{
+     line-height: 0.5357142857142857rem;
+     font-size:0.39285714285714285rem;
+     text-align: left;
+     padding:0.32142857142857145rem 0.5357142857142857rem;
+     background: #F5F5F5;
 }
-.appdownload a{
-    color:#4585DD;
+ .appdownload{
+     margin-top:0.7589285714285714rem;
 }
-
-
-.bottom{
-    height: 215px;
-    text-align: center;
-    background: #F8F8F8;
-    padding-top:50px;
-    box-sizing: border-box;
-    color:#BFBEC3;
+ .appdownload p{
+     height: 0.3125rem;
+     line-height: 0.3125rem;
+     color:#666;
+     margin-top:0.26785714285714285rem;
+     font-size:0.3125rem;
 }
-.info div:first-child{font-size:52px}
-.info div:last-child{font-size:35px;margin-top:10px;}
+ .appdownload a{
+     color:#4585DD;
+}
+ .bottom{
+     height: 1.9196428571428572rem;
+     text-align: center;
+     background: #F8F8F8;
+     padding-top:0.44642857142857145rem;
+     box-sizing: border-box;
+     color:#BFBEC3;
+}
+ .info div:first-child{
+     font-size:0.4642857142857143rem;
+}
+ .info div:last-child{
+     font-size:0.3125rem;
+     margin-top:0.08928571428571429rem;
+}
+ 

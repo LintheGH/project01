@@ -1,27 +1,40 @@
 require.config({
     paths:{
         'jquery':'../lib/jquery',
-        'cookie':'./cookieOperate',
         'http':'./httpclient',
         'dialog':'../lib/dialog/js/dialog',
+        'validate':'./validate'
     }
 });
  
 
-require(['jquery','cookie','http','dialog'],($,cookie,http,dialog) => {
+require(['jquery','http','dialog','validate'],($,http,dialog,validate) => {
     $(function(){
-        let _cookie = cookie.read();
-        if(!_cookie){
-            _cookie = {};
-        }
+
+        validate('../index.html');
+
+        let Id = window.localStorage.getItem('_id');
         http.get('getaccount',{
-            id:_cookie.uid || null
+            id:Id
         },{'auth':window.localStorage.getItem('token')}).then((res) => {
+            console.log(res)
             if(res.status){
                 let phn = res.data.res[0].phone.slice(0,3) + '****' +res.data.res[0].phone.slice(-4)
                 $('.userphone').text(phn);
             }else{
                 console.log(res.message)
+                var dialog2 = $(document).dialog({
+                    type:'alert',
+                    titleShow: false,
+                    overlayClose: true,
+                    content: '无法获取帐号信息',
+                    onClosed: function() {
+                        window.location.href = './user.html'
+                    }
+                });
+                $('.dialog-content').css({'width':'60%'})
+                $('.dialog-content-bd').css('text-align','center')
+                $('.dialog-content-ft').remove();
             }
         }).catch((err) => {
             console.log(err);
@@ -52,6 +65,7 @@ require(['jquery','cookie','http','dialog'],($,cookie,http,dialog) => {
                     }
                 ]
             });
+            $('.dialog-content-hd .dialog-content-title').css('font-size','0.4017857142857143rem ')
         });
         
     })

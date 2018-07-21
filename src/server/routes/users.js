@@ -36,7 +36,7 @@ module.exports = {
             // let res = await db.mongo.find('users',_params)
             
             if(result.length > 0){
-                let token = _token.codeToken(request.body.phone)
+                let token = _token.codeToken(result[0]._id)
                 response.send(apiResult(true,{result,token},'login success!'));
             }else{
                 let output = apiResult(result.length > 0,{},'name or password uncorrect');
@@ -52,33 +52,37 @@ module.exports = {
                 randomcode:request.body.randomcode,
                 codeExpires:request.body.expires
             }
-            let dataset = await db.mongo.find('users',{phone:request.body.phone});
-            if(dataset.length <= 0){
+            let res = await db.mongo.find('users',{phone:request.body.phone});
+            if(res.length <= 0){
                 if(request.body.randomcode){
-                    let _dataset = await db.mongo.find('users',{randomcode:request.body.randomcode});
-                    if(_dataset.length <=0 ){
+                    let dataset = await db.mongo.find('users',{randomcode:request.body.randomcode});
+                    if(dataset.length <=0 ){
                         response.send(apiResult(false,{},'account is not exit'));
                     }else{
-                        _dataset[0].phone = request.body.phone;
-                        let result = db.mongo.update('users',{randomcode:request.body.randomcode},_dataset[0]);
-                        response.send(apiResult(true,{result},'update successed'));
+                        dataset[0].phone = request.body.phone; 
+                        let token = _token.codeToken(dataset[0]._id);
+                        let result = db.mongo.update('users',{randomcode:request.body.randomcode},dataset[0]);
+                        response.send(apiResult(true,{dataset,token},'update successed'));
                     }
                 }else{
                     response.send(apiResult(false,{},'account is not exit'));
                 }
-            }else if(params.password&&(params.password != dataset[0].password)){
-                dataset[0].password = request.body.password;
-                let result = db.mongo.update('users',{phone:request.body.phone},dataset[0]);
-                response.send(apiResult(true,{result},'update successed'));
-            }else if(params.phone&&(params.phone != dataset[0].phone)){
-                dataset[0].phone = request.body.phone;
-                let result = db.mongo.update('users',{phone:request.body.phone},dataset[0]);
-                response.send(apiResult(true,{result},'update successed'));
+            }else if(params.password&&(params.password != res[0].password)){
+                res[0].password = request.body.password;
+                let token = _token.codeToken(res[0]._id);
+                let result = db.mongo.update('users',{phone:request.body.phone},res[0]);
+                response.send(apiResult(true,{res,token},'update successed'));
+            }else if(params.phone&&(params.phone != res[0].phone)){
+                res[0].phone = request.body.phone;
+                let token = _token.codeToken(res[0]._id);
+                let result = db.mongo.update('users',{phone:request.body.phone},res[0]);
+                response.send(apiResult(true,{res,token},'update successed'));
             }else if(params.randomcode&&params.codeExpires){
-                dataset[0].randomcode = request.body.randomcode;
-                dataset[0].codeExpires = request.body.expires;
-                let result = db.mongo.update('users',{phone:request.body.phone},dataset[0]);
-                response.send(apiResult(true,{result},'update successed'));
+                res[0].randomcode = request.body.randomcode;
+                res[0].codeExpires = request.body.expires;
+                let token = _token.codeToken(res[0]._id);
+                let result = db.mongo.update('users',{phone:request.body.phone},res[0]);
+                response.send(apiResult(true,{res,token},'update successed'));
             }
         })
     },
@@ -88,7 +92,7 @@ module.exports = {
                 phone:request.body.phone,
                 password:request.body.password
             }
-            let dataset = db.mongo.find('users',params);
+            let res = db.mongo.find('users',params);
             if(dataset <= 0){
                 response.send(apiResult(false,{},'eror,account not exit'))
             }else{
@@ -108,7 +112,7 @@ module.exports = {
 
             let res = await db.mongo.find('users',{phone:request.body.phone});
             if(res.length >0){
-                let token = _token.codeToken(request.body.phone)
+                let token = _token.codeToken(res[0]._id)
                 let result = await db.mongo.update('users',{phone:request.body.phone},params);
                 response.send(apiResult(true,{res,result,token},'success'))
             }else{
@@ -126,8 +130,9 @@ module.exports = {
                 params = {_id}
             }else if(request.query.phone){
                 params = {phone:request.query.phone}
+            }else{
+                response.send(apiResult(false,{},'can not get params'));
             }
-
             let res = await db.mongo.find('users',params);
 
             if(res.length > 0){

@@ -5,6 +5,7 @@ require.config({
         'http':'./httpclient',
         'reg':'./regtest',
         'dialog':'../lib/dialog/js/dialog',
+        'validate':'./validate'
 
     }
 })
@@ -30,8 +31,10 @@ define('inteval',() => {
 
 
 
-require(['jquery','http','reg','randomcode','inteval','dialog'],($,http,reg,random,inteval,dialog) => {
+require(['jquery','http','reg','randomcode','inteval','dialog','validate'],($,http,reg,random,inteval,dialog,validate) => {
     $(function(){
+        //token验证
+        validate('./accountmanage.html')
         let _phone='';
         let _id = window.localStorage.getItem('_id');
         http.get('getaccount',{
@@ -138,9 +141,7 @@ require(['jquery','http','reg','randomcode','inteval','dialog'],($,http,reg,rand
                                 password:password,
                                 randomcode:randomCode
                             },{'auth':`${window.localStorage.getItem('token')}`}).then((res) => {
-
                                 if(res.status){
-
                                     $(document).dialog({
                                         type:'confirm',
                                         titleShow: false,
@@ -161,7 +162,6 @@ require(['jquery','http','reg','randomcode','inteval','dialog'],($,http,reg,rand
                             }).catch((err) =>{
                                 console.log(err)
                             });
-                            
                         }
                     }else{
                         alert('手机号未注册');
@@ -170,7 +170,6 @@ require(['jquery','http','reg','randomcode','inteval','dialog'],($,http,reg,rand
                     console.log(err);
                 });
             }
-  
         });
         
         $('#back_btn').on('touchstart',() => {

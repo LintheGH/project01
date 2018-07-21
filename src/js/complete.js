@@ -90,6 +90,7 @@ require(['jquery','randomcode','http','inteval','reg','dialog'],($,random,http,i
                     if(res.status){
                         let codeExpires = Number(res.data.res[0].codeExpires);
                         let randomCode = res.data.res[0].randomcode;
+                        console.log(randomCode)
                         let date = Date.now();
 
                         if(randomCode != $('#code').val()){
@@ -109,22 +110,9 @@ require(['jquery','randomcode','http','inteval','reg','dialog'],($,random,http,i
                             });
                             $('.dialog-content-ft').remove();
                         }else{
-
+                            window.localStorage.setItem('_id',res.data.res[0]._id)
                             window.localStorage.setItem('token',res.data.token)
-                            $(document).dialog({
-                                type:'confirm',
-                                titleShow: false,
-                                content: '修改成功',
-                                 buttons:   [
-                                                {
-                                                    name: '确定',
-                                                    class: 'dialog-btn-confirm',
-                                                    callback: function() {
-                                                        window.location.href = '../index.html'
-                                                    }
-                                                }
-                                            ]
-                            });
+                            window.location.href = '../index.html'
                         }
                     }else{
                         $('#userphone').prop('value','');

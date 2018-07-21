@@ -48,3 +48,38 @@ body{background: #f9f9f9;}
 .dialog-btn-confirm{
     color:#07BF05 !important;
 }
+
+
+/*弹窗样式重置*/
+html body .dialog-content  *{
+    font-size: 36px;
+
+}
+
+.dialog-content {
+
+      top:37% !important;
+}
+
+@media screen and (min-width: 767px) {
+    html body .dialog-content {
+      max-width: 60%;
+    }
+  }
+html body .dialog-content-title{
+    font-size: 48px;
+}
+
+html body .dialog-content-ft{
+    height:80px;
+}
+
+html body .dialog-btn{
+    height:80px;
+    line-height: 80px;
+    color:#07BF05;
+}
+
+html body .dialog-btn-hl{
+    color:#000;
+}

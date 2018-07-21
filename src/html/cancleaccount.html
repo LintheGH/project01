@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css" />
     <script>
         document.addEventListener('DOMContentLoaded',function(){
-            var wd = document.documentElement.clientWidth/8;
+            var wd = document.documentElement.clientWidth*window.devicePixelRatio/10;            document.getElementsByTagName('html')[0].style.fontSize = wd +'px';
             document.getElementsByTagName('html')[0].style.fontSize = wd +'px';
             var scale = 1/window.devicePixelRatio;
             var mstr = 'initial-scale='+ scale +', maximum-scale='+ scale +', minimum-scale='+ scale +', user-scalable=no';

@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = {
-    codeToken: (name) => {
+    codeToken: (id) => {
         let secret = 'lintoken';
-        let preload = {phone:name};
+        let preload = {_id:id};
         let expires = {expiresIn:'240h'}
         let token;
         return token = jwt.sign(preload,secret,expires);

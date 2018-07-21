@@ -3,13 +3,12 @@ require.config({
         'jquery':'../lib/jquery',
         'http':'./httpclient',
         'reg':'./regtest',
-        'cookie':'./cookieOperate',
         'dialog':'../lib/dialog/js/dialog',
 
     }
 });
 
-require(['jquery','http','reg','cookie','dialog'],($,http,reg,cookie,dialog) => {
+require(['jquery','http','reg','dialog'],($,http,reg,cookie,dialog) => {
     $(function(){
         $('#login_btn').on('touchstart',() => {
             //验证手机号、密码合法性
